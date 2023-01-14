@@ -1,0 +1,6 @@
+module Pods_dev4passion_eword_dapp {
+  umbrella header "Pods-dev4passion_eword_dapp-umbrella.h"
+
+  export *
+  module * { export * }
+}

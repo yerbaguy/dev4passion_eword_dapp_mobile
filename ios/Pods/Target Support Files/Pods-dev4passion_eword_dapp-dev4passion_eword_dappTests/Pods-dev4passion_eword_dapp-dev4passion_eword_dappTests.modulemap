@@ -1,0 +1,6 @@
+module Pods_dev4passion_eword_dapp_dev4passion_eword_dappTests {
+  umbrella header "Pods-dev4passion_eword_dapp-dev4passion_eword_dappTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

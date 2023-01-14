@@ -1,0 +1,5 @@
+#import <Foundation/Foundation.h>
+@interface PodsDummy_Pods_dev4passion_eword_dapp_dev4passion_eword_dappTests : NSObject
+@end
+@implementation PodsDummy_Pods_dev4passion_eword_dapp_dev4passion_eword_dappTests
+@end

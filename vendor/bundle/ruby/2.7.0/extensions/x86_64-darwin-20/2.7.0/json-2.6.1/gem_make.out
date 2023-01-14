@@ -1,0 +1,13 @@
+current directory: /Users/bartosz/Documents/react-native-dapps/dev4passion_eword_dapp/vendor/bundle/ruby/2.7.0/gems/json-2.6.1/ext/json
+/Users/bartosz/.rbenv/versions/2.7.4/bin/ruby -I /Users/bartosz/.rbenv/versions/2.7.4/lib/ruby/2.7.0 -r ./siteconf20221214-89592-1pr1x91.rb extconf.rb
+creating Makefile
+
+current directory: /Users/bartosz/Documents/react-native-dapps/dev4passion_eword_dapp/vendor/bundle/ruby/2.7.0/gems/json-2.6.1/ext/json
+make "DESTDIR=" clean
+
+current directory: /Users/bartosz/Documents/react-native-dapps/dev4passion_eword_dapp/vendor/bundle/ruby/2.7.0/gems/json-2.6.1/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/bartosz/Documents/react-native-dapps/dev4passion_eword_dapp/vendor/bundle/ruby/2.7.0/gems/json-2.6.1/ext/json
+make "DESTDIR=" install
