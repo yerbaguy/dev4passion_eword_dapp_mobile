@@ -29,6 +29,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import  EWordContractt  from './utils/EWordContract.json';
 
 import { UInt256, U256 } from 'uint256';
+import { parse } from 'dotenv';
 
 const ewordAddress = "0x047F65031c8aBf370FDBfEf667B0b1fd702F09Ef"
 
@@ -139,7 +140,8 @@ const Section: React.FC<{
 
       // loadEWordContract();
 
-    },[],[data])
+    // },[],[data])
+  },[])
 
     // const connector = useWalletConnect();
 
@@ -171,12 +173,35 @@ const Section: React.FC<{
           // console.log("ewords_lenght", ewords_count);
       })
 
-         const word_number = ewords_count;
-         console.log("word_number", word_number);
+           
+
+        //  const word_number = ewords_count;
+        // const word_number = Number.parseInt(ewords_count) * 1e18;
+      
+      //////  var word_number = Number.parseInt(ewords_count);
+      
+        // var wordnumber: UInt256 = ewords_count; wrong
+         var wordnumber = 2;
+        //var wordnumber = ewords_count;
+      
+       ///// console.log("word_number", word_number);
+        
         //  const wordnumber = U256(word_number);
         //  console.log("wordnumber", wordnumber);
 
-        var result = contractt.methods.getEngWordPlWord(2).call((error, result) => {
+        var result = contractt.methods.getEngWordPlWord(wordnumber).call((error, result) => {
+
+          // var BigNumber = require('bignumber.js');
+
+          
+          // var big_number = BigNumber(result);
+
+             
+
+            
+         // console.log(big_number);
+
+
           console.log(result);
     
          // const result_length = result.length
@@ -198,11 +223,15 @@ const Section: React.FC<{
   
   ///////    const max = Math.floor(data);
 
-  const max = Math.floor(5);
+  // const max = Math.floor(5);
+  const max = Math.floor(ewords_count);
       // return Math.floor(Math.random() * (max - min) + min);
       const dataa =  Math.floor(Math.random() * (max - min) + min);
 
       console.log("data", dataa);
+
+      setEwordsCount(dataa);
+      console.log("setEWordsCount", ewords_count);
   
   
   //////    fetchEngWord(dataa);
