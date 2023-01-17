@@ -86,7 +86,11 @@ const Section: React.FC<{
     const connector = useWalletConnect();
 
     const [data, setData] = React.useState([]);
-    const [ewords_count, setEwordsCount] = React.useState(1);
+    // const [ewords_count, setEwordsCount] = React.useState(1);
+     const [ewords_count, setEwordsCount] = React.useState<Int>(1);
+
+     var ewordscount: Int = 1;
+    //const [ewords_count, setEwordsCount] = React.useState<number>(1);
 
     Contract.setProvider('wss://eth-goerli.g.alchemy.com/v2/1NkuHJk9fySa1xwgPZ21rwqkGJbh_9Cm');
 
@@ -181,28 +185,52 @@ const Section: React.FC<{
       //////  var word_number = Number.parseInt(ewords_count);
       
         // var wordnumber: UInt256 = ewords_count; wrong
-         var wordnumber = 2;
-        //var wordnumber = ewords_count;
+         // var wordnumber: Int = 2;
+       
+       
+       ///////  var wordnumber = Web3.utils.toBN(UInt256(ewords_count));
+       // var wordnumber = ewords_count;
+
+             // var wordnumber = ewords_count;
+
+             var wordnumber: Int = 1;
+             
+       // var wordnumber = 1;
+
+      
       
        ///// console.log("word_number", word_number);
         
         //  const wordnumber = U256(word_number);
         //  console.log("wordnumber", wordnumber);
 
-        var result = contractt.methods.getEngWordPlWord(wordnumber).call((error, result) => {
+
+        
+
+        var result = contractt.methods.getEngWordPlWord(ewordscount).call((error, result) => {
+          console.log("wordnumberr", wordnumber);
+
+          console.log("typeofvariableis", typeof(wordnumber));
 
           // var BigNumber = require('bignumber.js');
+
+          //console.log("result", Web3.utils.toBN(result));
+           // Web3.utils.toBN(UInt256())
 
           
           // var big_number = BigNumber(result);
 
-             
+             var resultt = result;
+
+             ///// var resulttttt = Number(resultt);
+             ///// var result_to_string = resulttttt.toString
+
 
             
          // console.log(big_number);
 
 
-          console.log(result);
+          console.log(resultt);
     
          // const result_length = result.length
       });
@@ -226,9 +254,14 @@ const Section: React.FC<{
   // const max = Math.floor(5);
   const max = Math.floor(ewords_count);
       // return Math.floor(Math.random() * (max - min) + min);
-      const dataa =  Math.floor(Math.random() * (max - min) + min);
+
+      // const dataa =  Math.floor(Math.random() * (max - min) + min);
+      var dataa: Int =  Math.floor(Math.random() * (max - min) + min);
+
 
       console.log("data", dataa);
+
+      ewordscount = dataa;
 
       setEwordsCount(dataa);
       console.log("setEWordsCount", ewords_count);
