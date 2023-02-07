@@ -10,8 +10,6 @@ import {
   useColorScheme,
   View,
   TouchableOpacity,
-  Button,
-  onPress
 } from 'react-native';
 
 import Web3 from 'web3';
@@ -27,9 +25,6 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //import { EWordContract } from './EWord';
 import  EWordContractt  from './utils/EWordContract.json';
-
-import { UInt256, U256 } from 'uint256';
-import { parse } from 'dotenv';
 
 const ewordAddress = "0x047F65031c8aBf370FDBfEf667B0b1fd702F09Ef"
 
@@ -86,11 +81,6 @@ const Section: React.FC<{
     const connector = useWalletConnect();
 
     const [data, setData] = React.useState([]);
-    const [ewords_count, setEwordsCount] = React.useState(1);
-
-    Contract.setProvider('wss://eth-goerli.g.alchemy.com/v2/1NkuHJk9fySa1xwgPZ21rwqkGJbh_9Cm');
-
-    const contractt = new Contract(EWordContractt.abi, ewordAddress);
 
     // const web3 = React.useMemo(
     //   () => new Web3('https://alfajores-forno.celo-testnet.org')
@@ -111,25 +101,9 @@ const Section: React.FC<{
       console.log("contract", contractt);
 
 
-      var result = contractt.methods.getEngWordPlWord(4).call((error, result) => {
+      var result = contractt.methods.getEngWordPlWord(1).call((error, result) => {
         console.log(result);
-
-        const result_length = result.length
     });
-
-  //   var result = contractt.methods.getEngWordPlWord(ewords_count).call((error, result) => {
-  //     console.log(result);
-
-  //     const result_length = result.length
-  // });
-
-
-    var result_ewords = contractt.methods.getEWords().call((error, result) => {
-
-        console.log("ewords_result", result.length);
-        setEwordsCount(result.length);
-        // console.log("ewords_lenght", ewords_count);
-    })
 
           //  const result =  contract.methods.getEngWordPlWord(1)
          /////// const result =  contract.methods.getEngWordPlWord(1)
@@ -140,8 +114,7 @@ const Section: React.FC<{
 
       // loadEWordContract();
 
-    // },[],[data])
-  },[])
+    },[],[data])
 
     // const connector = useWalletConnect();
 
@@ -152,92 +125,6 @@ const Section: React.FC<{
     const killSession = React.useCallback(() => {
       return connector.killSession();
     }, [connector]);
-
-
-
-    // function getRandomInt() {
-
-       const submitEWord = () => {
-     // submitEWord() {
-
-
-
-        console.log("lkajsdlfk")
-        getRandomInt()
-        console.log("ewords_lenght", ewords_count);
-
-        var result_ewords = contractt.methods.getEWords().call((error, result) => {
-
-          console.log("ewords_result", result.length);
-          setEwordsCount(result.length);
-          // console.log("ewords_lenght", ewords_count);
-      })
-
-           
-
-        //  const word_number = ewords_count;
-        // const word_number = Number.parseInt(ewords_count) * 1e18;
-      
-      //////  var word_number = Number.parseInt(ewords_count);
-      
-        // var wordnumber: UInt256 = ewords_count; wrong
-         var wordnumber = 2;
-        //var wordnumber = ewords_count;
-      
-       ///// console.log("word_number", word_number);
-        
-        //  const wordnumber = U256(word_number);
-        //  console.log("wordnumber", wordnumber);
-
-        var result = contractt.methods.getEngWordPlWord(wordnumber).call((error, result) => {
-
-          // var BigNumber = require('bignumber.js');
-
-          
-          // var big_number = BigNumber(result);
-
-             
-
-            
-         // console.log(big_number);
-
-
-          console.log(result);
-    
-         // const result_length = result.length
-      });
-
-      }
-
-      const getRandomInt = () => {
-
-
-
-      // min = Math.ceil(min);
-      // max = Math.floor(max);
-
-      const data = 10;
-
-    const min = Math.ceil(1);
-      // max = Math.floor(data.length);
-  
-  ///////    const max = Math.floor(data);
-
-  // const max = Math.floor(5);
-  const max = Math.floor(ewords_count);
-      // return Math.floor(Math.random() * (max - min) + min);
-      const dataa =  Math.floor(Math.random() * (max - min) + min);
-
-      console.log("data", dataa);
-
-      setEwordsCount(dataa);
-      console.log("setEWordsCount", ewords_count);
-  
-  
-  //////    fetchEngWord(dataa);
-  
-    }
-
 
     return (
         <View>
@@ -261,10 +148,6 @@ const Section: React.FC<{
               </>
             )}
           </Section>
-
-
-          {/* <Button title="submit" onPress={()=>{submitEWord}}/> */}
-          <Button title="submit" onPress={submitEWord}/>
 
         </View>
     )

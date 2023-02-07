@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/bartosz/Documents/react-native-dapps/dev4passion_eword_dapp_mobile/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rGB/values-en-rGB.xml",
+            "outputFile": "/Users/bartosz/Documents/react-native-dapps/dev4passion_eword_dapp/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rGB/values-en-rGB.xml",
             "map": [
                 {
                     "source": "/Users/bartosz/.gradle/caches/transforms-3/f382564408e8806e991bcb7c984abfd6/transformed/core-1.5.0/res/values-en-rGB/values-en-rGB.xml",
