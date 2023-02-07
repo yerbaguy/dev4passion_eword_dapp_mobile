@@ -4,7 +4,7 @@
             "outputFile": "/Users/bartosz/Documents/react-native-dapps/dev4passion_eword_dapp/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ms/values-ms.xml",
             "map": [
                 {
-                    "source": "/Users/bartosz/.gradle/caches/transforms-3/f382564408e8806e991bcb7c984abfd6/transformed/core-1.5.0/res/values-ms/values-ms.xml",
+                    "source": "/Users/bartosz/.gradle/caches/transforms-3/5c61d7afbc1bcd99cb491da6ba2ee6c1/transformed/core-1.6.0/res/values-ms/values-ms.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

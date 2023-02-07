@@ -8,6 +8,7 @@ import {
   useColorScheme,
   View,
   TouchableOpacity,
+  Button
 } from 'react-native';
 
 import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
@@ -19,6 +20,10 @@ import {
   withWalletConnect,
 } from '@walletconnect/react-native-dapp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+//import FormContainer from './FormContainer';
+import { Formik } from 'formik';
+import { TextInput } from 'react-native-gesture-handler';
 
 const shortenAddress = (address: string) => {
   return `${address.slice(0, 6)}...${address.slice(
@@ -57,6 +62,15 @@ const Section: React.FC<{
 
   const EWords = () => {
 
+
+
+    const eWord = {
+      engword: '',
+      plword: ''
+    };
+
+    const { engword, plword } = eWord;
+
     const connector = useWalletConnect();
 
     const connectWallet = React.useCallback(() => {
@@ -67,9 +81,22 @@ const Section: React.FC<{
       return connector.killSession();
     }, [connector]);
 
-    return (
-        <View>
 
+
+    const signUp = (values) => {
+
+      console.log(values)
+
+    }
+
+    return (
+
+      // <Formik
+      // initialValues={eWord}
+      // onSubmit={signUp}
+      // >
+         <View>
+      
 <Section title="Connect your wallet">
             {!connector.connected && (
               <TouchableOpacity
@@ -90,7 +117,52 @@ const Section: React.FC<{
             )}
           </Section>
 
-        </View>
+
+
+
+          <Formik
+            initialValues={{engword: '', plword: ''}}
+            onSubmit={(values)=>{
+
+              console.log(values);
+
+              console.log(values.engword);
+              console.log(values.plword);
+
+            }}
+          >
+
+            {(props)=>(
+              <View>
+
+                <TextInput placeholder='engword'
+                onChangeText={props.handleChange('engword')}
+                value={props.values.engword} />
+
+                <TextInput placeholder='plword'
+                onChangeText={props.handleChange('plword')}
+                value={props.values.plword} />
+
+                <Button title='submit' onPress={props.handleSubmit} />                
+
+                {/* <TextInput placeholder='engword'
+                onChangeText={props.handleChange('engword')}
+                value={props.values.engword} 
+                />
+                <TextInput placeholder='plword'
+                onChangeText={props.handleChange('plword')}
+                value={props.values.plword} 
+                />
+
+                <button title='submit' onPress={props.handleSubmit} /> */}
+
+              </View>
+            )}
+
+
+          </Formik>
+          </View>
+        // </Formik>
     )
   }
 
