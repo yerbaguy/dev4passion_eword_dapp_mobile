@@ -1,3 +1,5 @@
+require('dotenv').config();
+const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
 import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
@@ -8,7 +10,6 @@ import {
   useColorScheme,
   View,
   TouchableOpacity,
-  Platform
 } from 'react-native';
 
 import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
@@ -20,8 +21,25 @@ import {
   withWalletConnect,
 } from '@walletconnect/react-native-dapp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { EWordContract } from './EWord';
+import { interact } from './interact';
 
-import detectEthereumProvider from '@metamask/detect-provider';
+
+const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
+
+
+
+
+//Using HTTPS
+const web3 = createAlchemyWeb3("https://eth-mainnet.g.alchemy.com/1NkuHJk9fySa1xwgPZ21rwqkGJbh_9Cm");
+
+// const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
+// const web3 = createAlchemyWeb3(alchemyKey); 
+
+ //// console.warn(web3);
+ // console.log(web3.getEWords())
+
+//console.warn(web3);
 
 const shortenAddress = (address: string) => {
   return `${address.slice(0, 6)}...${address.slice(
@@ -60,34 +78,15 @@ const Section: React.FC<{
 
   const EWords = () => {
 
-    const [data, setData] = React.useState("");
-    const [data1, setData1] = React.useState("");
+    const [data, setData] = React.useState([]);
 
 
+    useEffect(()=>{
 
-    if (Platform.OS === 'web') {
+     // loadEWordContract();
+      console.log(interact);
 
-      useEffect(()=>{
-
-        const information = "lkjadsf";
-        setData(information)
-        data1
-      
-        fetchEWords();
-  
-      },[data],[data1])
-  
-
-    }
-
-    // useEffect(()=>{
-
-    //   const information = "lkjadsf";
-    //   setData(information)
-    
-    //   fetchEWords();
-
-    // },[data])
+    },[],[data])
 
     const connector = useWalletConnect();
 
@@ -98,29 +97,6 @@ const Section: React.FC<{
     const killSession = React.useCallback(() => {
       return connector.killSession();
     }, [connector]);
-
-
-
-    const fetchEWords = async() => {
-
-      try {
-
-        const web3 = await detectEthereumProvider(); // Use Metamask-injected web3
-        // await web3.request({ method: 'eth_requestAccounts'});
-        await web3.currentProvider.sendAsynct({ method: 'eth_requestAccounts'});
-        const addresses = await web3.eth.getAccounts();
-        console.warn("addresses", addresses[0]);
-       // const addresss = addresses[1];
-       // console.warn("addresses1", addresss);
-        setData1(addresses);
-  
-        
-      } catch (error) {
-        console.warn(error)
-      }
-
-
-    }
 
     return (
         <View>
@@ -144,8 +120,6 @@ const Section: React.FC<{
               </>
             )}
           </Section>
-          <Text>Data: {data}</Text>
-          <Text>Data1: {data1}</Text>
 
         </View>
     )
@@ -196,6 +170,34 @@ const Section: React.FC<{
       fontWeight: '600',
     },
   });
+export const loadEWordContract = async() => {
+
+  const ewords = await EWordContract.methods.getEWords().call();
+
+  console.warn("lenght", ewords.length);
+   // console.log(ewords.getEWords());
+  // setData(ewords);
+  // console.log(data[0][0])
+
+
+
+   // console.warn(ewords);
+ 
+  // const ewordss =  JSON.parse(ewords)
+    // setData(ewordss)
+    // console.warn(ewordss.getEngWordPlWord(2));
+
+   // const result = JSON.parse(ewordss);
+    // setData(result);
+    // console.warn(result);
+
+
+
+   // console.debug(ewordss)
+   // console.warn(data.getEWords());
+   // console.warn(ewordss);
+  return ewords;
+};
 
   ////export default EWords;
 
