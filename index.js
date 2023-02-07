@@ -2,8 +2,6 @@
  * @format
  */
 
-
-import './shim'
 require('process');
 
 import {AppRegistry} from 'react-native';
