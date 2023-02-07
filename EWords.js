@@ -1,4 +1,6 @@
-import React from 'react';
+require('dotenv').config();
+const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -20,10 +22,23 @@ import {
   withWalletConnect,
 } from '@walletconnect/react-native-dapp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { EWordContract } from './EWord';
 
-//import FormContainer from './FormContainer';
 import { Formik } from 'formik';
 import { TextInput } from 'react-native-gesture-handler';
+import Web3 from 'web3';
+
+const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
+
+//Using HTTPS
+///const web3 = createAlchemyWeb3("https://eth-mainnet.g.alchemy.com/1NkuHJk9fySa1xwgPZ21rwqkGJbh_9Cm");
+
+// const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
+// const web3 = createAlchemyWeb3(alchemyKey); 
+
+///console.warn(web3);
+
+//console.warn(web3);
 
 const shortenAddress = (address: string) => {
   return `${address.slice(0, 6)}...${address.slice(
@@ -62,14 +77,14 @@ const Section: React.FC<{
 
   const EWords = () => {
 
+    const [data, setData] = React.useState([]);
 
 
-    const eWord = {
-      engword: '',
-      plword: ''
-    };
+    useEffect(()=>{
 
-    const { engword, plword } = eWord;
+     // loadEWordContract();
+
+    },[],[data])
 
     const connector = useWalletConnect();
 
@@ -81,22 +96,9 @@ const Section: React.FC<{
       return connector.killSession();
     }, [connector]);
 
-
-
-    const signUp = (values) => {
-
-      console.log(values)
-
-    }
-
     return (
+        <View>
 
-      // <Formik
-      // initialValues={eWord}
-      // onSubmit={signUp}
-      // >
-         <View>
-      
 <Section title="Connect your wallet">
             {!connector.connected && (
               <TouchableOpacity
@@ -116,8 +118,6 @@ const Section: React.FC<{
               </>
             )}
           </Section>
-
-
 
 
           <Formik
@@ -161,8 +161,15 @@ const Section: React.FC<{
 
 
           </Formik>
-          </View>
-        // </Formik>
+
+
+
+
+
+
+
+
+        </View>
     )
   }
 
@@ -211,6 +218,27 @@ const Section: React.FC<{
       fontWeight: '600',
     },
   });
+export const loadEWordContract = async() => {
+
+  const ewords = await EWordContract.methods.getEWords().call();
+  setData(ewords);
+  console.warn(ewords);
+ 
+  // const ewordss =  JSON.parse(ewords)
+    // setData(ewordss)
+    // console.warn(ewordss.getEngWordPlWord(2));
+
+   // const result = JSON.parse(ewordss);
+    // setData(result);
+    // console.warn(result);
+
+
+
+   // console.debug(ewordss)
+   // console.warn(data.getEWords());
+   // console.warn(ewordss);
+  return ewords;
+};
 
   ////export default EWords;
 
