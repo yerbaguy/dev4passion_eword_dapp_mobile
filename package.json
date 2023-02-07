@@ -10,20 +10,16 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@alch/alchemy-web3": "^1.4.7",
     "@react-native-async-storage/async-storage": "^1.17.11",
     "@tradle/react-native-http": "^2.0.1",
     "@walletconnect/react-native-dapp": "^1.8.0",
     "base-64": "^1.0.0",
-    "Base64": "^1.1.0",
     "browserify-zlib": "^0.1.4",
     "buffer": "^6.0.3",
     "dns.js": "^1.0.1",
-    "dotenv": "^16.0.3",
     "events": "^1.1.1",
     "https-browserify": "^0.0.1",
     "node-libs-browser": "^2.2.1",
-    "node-libs-react-native": "^1.2.1",
     "path-browserify": "^0.0.0",
     "process": "^0.11.10",
     "punycode": "^1.4.1",
@@ -41,11 +37,9 @@
     "stream-browserify": "^1.0.0",
     "string_decoder": "^0.10.31",
     "timers-browserify": "^1.4.2",
-    "uint256": "^1.0.8",
     "url": "^0.10.3",
     "util": "^0.10.4",
-    "vm-browserify": "^0.0.4",
-    "web3": "^1.8.1"
+    "vm-browserify": "^0.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
