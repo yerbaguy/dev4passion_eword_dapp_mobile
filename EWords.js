@@ -1,6 +1,12 @@
 require('dotenv').config();
 const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
 import React, { useState, useEffect } from 'react';
+import { ethers } from "ethers"
+import WalletConnectProvider from "@walletconnect/web3-provider"
+import EWordContract from './utils/EWordContract.json'
+
+import detectEthereumProvider from '@metamask/detect-provider'
+
 import {
   SafeAreaView,
   ScrollView,
@@ -10,7 +16,6 @@ import {
   useColorScheme,
   View,
   TouchableOpacity,
-  Button
 } from 'react-native';
 
 import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
@@ -22,21 +27,25 @@ import {
   withWalletConnect,
 } from '@walletconnect/react-native-dapp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { EWordContract } from './EWord';
+////import { EWordContract } from './EWord';
 
-import { Formik } from 'formik';
-import { TextInput } from 'react-native-gesture-handler';
+
+
+import { loadEWord } from './interact';
+//import loadEWord  from './interact';
 import Web3 from 'web3';
+
+const ewordAddress = "0x047F65031c8aBf370FDBfEf667B0b1fd702F09Ef"
 
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 
 //Using HTTPS
-///const web3 = createAlchemyWeb3("https://eth-mainnet.g.alchemy.com/1NkuHJk9fySa1xwgPZ21rwqkGJbh_9Cm");
+const web3 = createAlchemyWeb3("https://eth-mainnet.g.alchemy.com/1NkuHJk9fySa1xwgPZ21rwqkGJbh_9Cm");
 
 // const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 // const web3 = createAlchemyWeb3(alchemyKey); 
 
-///console.warn(web3);
+console.warn(web3);
 
 //console.warn(web3);
 
@@ -79,12 +88,37 @@ const Section: React.FC<{
 
     const [data, setData] = React.useState([]);
 
+    const [engW, setEngW] = React.useState([])
+    const [plW, setplW] = React.useState([])
+
 
     useEffect(()=>{
 
+
+      // const provider = await detectEthereumProvider()
+      // if (provider) {
+      //   console.log("detected")
+      // }
+     
+
+      getEWord();
+      console.log(engW);
+     // const fetchEngWordPlWord = async() => {
+     // async function fetchEngWordPlWord() {
+
+        // const eword = await loadEWord();
+        // setEngW(engW)
+        // console.log(eword[0]);
+  
+     // }
+
+     // fetchEngWordPlWord();
+
      // loadEWordContract();
 
-    },[],[data])
+    // },[],[data])
+     },[],[engW])
+
 
     const connector = useWalletConnect();
 
@@ -95,6 +129,65 @@ const Section: React.FC<{
     const killSession = React.useCallback(() => {
       return connector.killSession();
     }, [connector]);
+
+
+  //  const getEWord = async() => {
+    async function getEWord() {
+      console.log("eword");
+
+            const provider = await web3.eth.accounts.privateKeyToAccount("d6a736bafc7f7a6ec508475555533eae388590c4d16748afee99f615ff7908dd");
+
+                 const signer = provider.signTransaction
+
+                 const contract = new ethers.Contract(ewordAddress, EWordContract.abi, signer)
+
+                 const wordid = 1;
+                 const transaction = await contract.getEngWordPlWord(wordid)
+
+                 setEngW(transaction[0])
+                 console.log("transaction", transaction[0]);
+
+
+
+        // console.log(provider);
+
+      // const provider = new ethers.providers.Web3Provider(
+      //   new WalletConnectProvider({API_KEY: '1NkuHJk9fySa1xwgPZ21rwqkGJbh_9Cm'})
+      // )
+
+
+//       const provider = await detectEthereumProvider()
+
+// if (provider) {
+
+//   console.log('Ethereum successfully detected!')
+
+//   // From now on, this should always be true:
+//   // provider === window.ethereum
+
+//   // Access the decentralized web!
+
+//   // Legacy providers may only have ethereum.sendAsync
+//   const chainId = await provider.request({
+//     method: 'eth_chainId'
+//   })
+// } else {
+
+//   // if the provider is not detected, detectEthereumProvider resolves to null
+//   console.error('Please install MetaMask!')
+// }
+      
+
+
+
+
+
+
+
+
+
+     // console.log(provider);
+    }
 
     return (
         <View>
@@ -118,56 +211,6 @@ const Section: React.FC<{
               </>
             )}
           </Section>
-
-
-          <Formik
-            initialValues={{engword: '', plword: ''}}
-            onSubmit={(values)=>{
-
-              console.log(values);
-
-              console.log(values.engword);
-              console.log(values.plword);
-
-            }}
-          >
-
-            {(props)=>(
-              <View>
-
-                <TextInput placeholder='engword'
-                onChangeText={props.handleChange('engword')}
-                value={props.values.engword} />
-
-                <TextInput placeholder='plword'
-                onChangeText={props.handleChange('plword')}
-                value={props.values.plword} />
-
-                <Button title='submit' onPress={props.handleSubmit} />                
-
-                {/* <TextInput placeholder='engword'
-                onChangeText={props.handleChange('engword')}
-                value={props.values.engword} 
-                />
-                <TextInput placeholder='plword'
-                onChangeText={props.handleChange('plword')}
-                value={props.values.plword} 
-                />
-
-                <button title='submit' onPress={props.handleSubmit} /> */}
-
-              </View>
-            )}
-
-
-          </Formik>
-
-
-
-
-
-
-
 
         </View>
     )
