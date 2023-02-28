@@ -82,6 +82,8 @@ const Section: React.FC<{
 
     const [data, setData] = React.useState([]);
 
+    ewords_result: Number;
+
     // const web3 = React.useMemo(
     //   () => new Web3('https://alfajores-forno.celo-testnet.org')
     // );
@@ -100,10 +102,43 @@ const Section: React.FC<{
 
       console.log("contract", contractt);
 
+      var result1 = contractt.methods.getEWords().call((error, result1) => {
+
+        console.log("result1", result1.length);
+         var data = result1.length;     
+     
+        const min = Math.ceil(1);
+        // max = Math.floor(data.length);
+      const max = Math.floor(data);
+    
+        // return Math.floor(Math.random() * (max - min) + min);
+        const dataa =  Math.floor(Math.random() * (max - min) + min);
+        console.log("random_int", dataa)
+
+
+        var result = contractt.methods.getEngWordPlWord(dataa).call((error, result) => {
+          console.log(result);
+          console.log(result[0]);
+          console.log(result[1]);
+      });
+      
+
+    });
+
+
 
       var result = contractt.methods.getEngWordPlWord(1).call((error, result) => {
         console.log(result);
+        console.log(result[0]);
+        console.log(result[1]);
     });
+
+  //   var result = contractt.methods.getEngWordPlWord(1).call((error, result) => {
+  //     console.log(result);
+  //     console.log(result[0]);
+  //     console.log(result[1]);
+  // });
+
 
           //  const result =  contract.methods.getEngWordPlWord(1)
          /////// const result =  contract.methods.getEngWordPlWord(1)

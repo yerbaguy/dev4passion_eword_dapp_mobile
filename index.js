@@ -2,7 +2,7 @@
  * @format
  */
 
-
+import 'react-native-gesture-handler';
 import './shim'
 require('process');
 

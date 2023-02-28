@@ -1,0 +1,7 @@
+<Drawer.Navigator initialRouteName="Learn">
+      {/* <Drawer.Screen name="Home" component={HomeScreen} /> */}
+      <Drawer.Screen name="Words" component={WordsScreen} />
+      <Drawer.Screen name="Learn" component={LearnWordsScreen} />
+      <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+    </Drawer.Navigator>
+  </NavigationContainer>
