@@ -1,5 +1,5 @@
-require('dotenv').config();
-const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
+// require('dotenv').config();
+// const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
 import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
@@ -33,7 +33,7 @@ import { parse } from 'dotenv';
 
 const ewordAddress = "0x047F65031c8aBf370FDBfEf667B0b1fd702F09Ef"
 
-const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
+//const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 var Contract = require('web3-eth-contract');
 
 //Using HTTPS
@@ -88,10 +88,13 @@ const Section: React.FC<{
     const [data, setData] = React.useState([]);
     const [ewords_count, setEwordsCount] = React.useState(1);
 
-    Contract.setProvider('wss://eth-goerli.g.alchemy.com/v2/1NkuHJk9fySa1xwgPZ21rwqkGJbh_9Cm');
+    // Contract.setProvider('wss://eth-goerli.g.alchemy.com/v2/1NkuHJk9fySa1xwgPZ21rwqkGJbh_9Cm');
+    // const contractt = new Contract(EWordContractt.abi, ewordAddress);
 
-    const contractt = new Contract(EWordContractt.abi, ewordAddress);
-
+   
+   
+   
+   
     // const web3 = React.useMemo(
     //   () => new Web3('https://alfajores-forno.celo-testnet.org')
     // );
@@ -101,7 +104,10 @@ const Section: React.FC<{
 
       // console.log("web3", web3);
 
-      Contract.setProvider('wss://eth-goerli.g.alchemy.com/v2/1NkuHJk9fySa1xwgPZ21rwqkGJbh_9Cm');
+      // https://eth-goerli.g.alchemy.com/v2/1NkuHJk9fySa1xwgPZ21rwqkGJbh_9Cm
+
+       Contract.setProvider('wss://eth-goerli.g.alchemy.com/v2/1NkuHJk9fySa1xwgPZ21rwqkGJbh_9Cm');
+      //Contract.setProvider('https://eth-goerli.g.alchemy.com/v2/1NkuHJk9fySa1xwgPZ21rwqkGJbh_9Cm');
 
       const contractt = new Contract(EWordContractt.abi, ewordAddress);
        
@@ -128,6 +134,44 @@ const Section: React.FC<{
 
         console.log("ewords_result", result.length);
         setEwordsCount(result.length);
+
+        const min = Math.ceil(1);
+        // max = Math.floor(data.length);
+    
+    ///////    const max = Math.floor(data);
+  
+    // const max = Math.floor(5);
+    // const max = Math.floor(ewords_count);
+    const max = Math.floor(result.length);
+        // return Math.floor(Math.random() * (max - min) + min);
+        const dataa =  Math.floor(Math.random() * (max - min) + min);
+  
+        console.log("data", dataa);
+
+
+
+        var result = contractt.methods.getEngWordPlWord(dataa).call((error, result) => {
+
+          // var BigNumber = require('bignumber.js');
+
+          
+          // var big_number = BigNumber(result);
+
+             
+
+            
+         // console.log(big_number);
+
+
+          console.log(result);
+    
+         // const result_length = result.length
+      });
+  
+
+
+
+
         // console.log("ewords_lenght", ewords_count);
     })
 
@@ -263,8 +307,31 @@ const Section: React.FC<{
           </Section>
 
 
+          {/* {!connector.connected && (
+              <TouchableOpacity
+                onPress={connectWallet}
+                style={styles.buttonStyle}>
+                <Text style={styles.buttonTextStyle}>Connect a Wallet</Text>
+              </TouchableOpacity>
+            )} */}
+
+
+              {/* ////second
+             <TouchableOpacity
+                onPress={connectWallet}
+                style={styles.buttonStyle}>
+                <Text style={styles.buttonTextStyle}>Connect a Wallet</Text>
+              </TouchableOpacity>
+             ///// */}
+
+
           {/* <Button title="submit" onPress={()=>{submitEWord}}/> */}
+
+
+
+          {/* ////// here       
           <Button title="submit" onPress={submitEWord}/>
+          ////// here */}
 
         </View>
     )
@@ -315,27 +382,27 @@ const Section: React.FC<{
       fontWeight: '600',
     },
   });
-export const loadEWordContract = async() => {
+// export const loadEWordContract = async() => {
 
-  const ewords = await EWordContract.methods.getEWords().call();
-  setData(ewords);
-  console.warn(ewords);
+//   const ewords = await EWordContract.methods.getEWords().call();
+//   setData(ewords);
+//   console.warn(ewords);
  
-  // const ewordss =  JSON.parse(ewords)
-    // setData(ewordss)
-    // console.warn(ewordss.getEngWordPlWord(2));
+//   // const ewordss =  JSON.parse(ewords)
+//     // setData(ewordss)
+//     // console.warn(ewordss.getEngWordPlWord(2));
 
-   // const result = JSON.parse(ewordss);
-    // setData(result);
-    // console.warn(result);
+//    // const result = JSON.parse(ewordss);
+//     // setData(result);
+//     // console.warn(result);
 
 
 
-   // console.debug(ewordss)
-   // console.warn(data.getEWords());
-   // console.warn(ewordss);
-  return ewords;
-};
+//    // console.debug(ewordss)
+//    // console.warn(data.getEWords());
+//    // console.warn(ewordss);
+//   return ewords;
+// };
 
   ////export default EWords;
 
